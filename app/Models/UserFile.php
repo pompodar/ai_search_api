@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class UserFile extends Model
 {
-    protected $fillable = ['path'];
+    protected $fillable = ['path', 'filename'];
 
     public function user()
     {

@@ -44,4 +44,6 @@ Route::middleware(['auth', 'verified'])->post('/file/upload', [FileController::c
 
 Route::middleware(['auth', 'verified'])->get('/user/files', [FileController::class, 'getUserFiles']);
 
+Route::middleware(['auth', 'verified'])->delete('/user/{userId}/files/{fileId}', [FileController::class, 'deleteFile']);
+
 require __DIR__.'/auth.php';
