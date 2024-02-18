@@ -21,6 +21,8 @@
     },
     "dependencies": {
         "@react-pdf-viewer/core": "^3.12.0",
-        "@react-pdf-viewer/toolbar": "^3.12.0"
+        "@react-pdf-viewer/toolbar": "^3.12.0",
+        "react-icons": "^5.0.1",
+        "react-modal": "^3.16.1"
     }
 }

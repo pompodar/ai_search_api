@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\FileController;
+use App\Http\Controllers\API\v1\APIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -45,5 +46,11 @@ Route::middleware(['auth', 'verified'])->post('/file/upload', [FileController::c
 Route::middleware(['auth', 'verified'])->get('/user/files', [FileController::class, 'getUserFiles']);
 
 Route::middleware(['auth', 'verified'])->delete('/user/{userId}/files/{fileId}', [FileController::class, 'deleteFile']);
+
+Route::middleware(['auth', 'verified'])->get('/process', [FileController::class, 'process']);
+
+Route::middleware(['auth', 'verified'])->group(function () {
+    Route::get('/user/{userId}/files', [APIController::class, 'index']);
+});
 
 require __DIR__.'/auth.php';
