@@ -65,10 +65,10 @@ export default function FileUpload({ auth }) {
                     <h2>Upload PDF</h2>
                     <FileUploadForm fetchUserFiles={fetchUserFiles} />
 
-                    <h2 class="flex justify-center mt-4">Uploaded Files</h2>
+                    <h2 className="flex justify-center mt-4">Uploaded Files</h2>
                     <ul className="user-files-list flex justify-center gap-4">
                         {userFiles.map((file, index) => (
-                            <li class="user-files__item" key={index}>
+                            <li className="user-files__item" key={index}>
                                 
                                 <button className="user-files-view-icon text-sm" onClick={() => handleFileSelect(file)}>
 
@@ -78,7 +78,7 @@ export default function FileUpload({ auth }) {
                                     
                                 </button>
                                 
-                                <button class="user-files-delete-icon" onClick={() => handleDeleteFile(file.id)}>
+                                <button className="user-files-delete-icon" onClick={() => handleDeleteFile(file.id)}>
                             
                                     <AiOutlineDelete />
 
@@ -93,9 +93,10 @@ export default function FileUpload({ auth }) {
                         onRequestClose={closeModal}
                         contentLabel="PDF Viewer Modal"
                     >
+                        
                         {selectedFile && (
                             <div className="">
-                                <h2 class="flex items-center justify-center mb-2 font-bold">{selectedFile.filename}</h2>
+                                <h2 className="flex items-center justify-center mb-2 font-bold">{selectedFile.filename}</h2>
                                 <Worker workerUrl="./pdfjs/pdf.worker.min.js">
                                     <Viewer fileUrl={`/storage/users-files/user-${auth.user.id}/${selectedFile.filename}`} />
                                 </Worker>

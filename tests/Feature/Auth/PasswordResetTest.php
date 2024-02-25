@@ -63,7 +63,13 @@ class PasswordResetTest extends TestCase
                 'password_confirmation' => 'password',
             ]);
 
+<<<<<<< HEAD
             $response->assertSessionHasNoErrors();
+=======
+            $response
+                ->assertSessionHasNoErrors()
+                ->assertRedirect(route('login'));
+>>>>>>> 064a684 (class to className)
 
             return true;
         });
