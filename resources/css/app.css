@@ -1,0 +1,27 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.user-files__item {
+    position: relative;
+}
+
+.user-files-view-icon {
+    margin-top: 1.5rem;
+    width: 6rem;
+    overflow: hidden;
+}
+
+.user-files-view-icon svg {
+    display: block;
+    margin: 0 auto;
+    width: 2rem;
+    height: 2rem;
+}
+
+.user-files-delete-icon svg {
+    position: absolute;
+    top: 1.5rem;
+    right: 0.8rem;
+    width: 0.8rem;
+}
