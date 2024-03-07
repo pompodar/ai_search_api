@@ -67,7 +67,7 @@ export default function FileUpload({ auth }) {
 
                         <>
 
-                            <h1>Upload PDF</h1>
+                            <h1>Upload PDF, max size: 20 Mb</h1>
 
                             <FileUploadForm fetchUserFiles={fetchUserFiles} />
 

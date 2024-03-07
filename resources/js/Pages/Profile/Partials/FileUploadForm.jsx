@@ -14,6 +14,8 @@ const FileUploadForm = ({ fetchUserFiles }) => {
 
         setIsLoading(true);
 
+        setNotice("");
+
         const formData = new FormData();
         formData.append('pdf', file);
 
@@ -22,9 +24,13 @@ const FileUploadForm = ({ fetchUserFiles }) => {
 
                 setIsLoading(false);
 
-                console.log(response.data);
+                console.log(response);
 
-                setNotice(response.data);
+                if (response.data.error) {
+                    setNotice("Please, provide a valid pdf file, max size: 20 Mb.");
+                } else {
+                    setNotice(response.data);
+                }
 
                 fetchUserFiles();
             })
@@ -56,9 +62,13 @@ const FileUploadForm = ({ fetchUserFiles }) => {
             {isLoading ? (
                 <div className="loader"></div>
             ) : (
-                notice ? (
-                    <p>{notice}</p>
-                ) : null
+                    <p></p>
+            )}
+
+            {notice ? (
+                <p>{notice}</p>
+            ) : (
+                    <p></p>
             )}
         </>
         

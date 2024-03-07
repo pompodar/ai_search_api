@@ -8,6 +8,7 @@ use App\Models\UserFile;
 use Illuminate\Support\Facades\Storage;
 use Symfony\Component\Process\Process;
 use Symfony\Component\Process\Exception\ProcessFailedException;
+use Illuminate\Support\Facades\Validator;
 
 class FileController extends Controller
 {
@@ -17,9 +18,19 @@ class FileController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        $request->validate([
-            'pdf' => 'required|mimes:pdf|max:2048',
+        // $request->validate([
+        //     'pdf' => 'required|mimes:pdf|max:2048',
+        // ]);
+
+        $validator = Validator::make($request->all(), [
+            'pdf' => 'required|mimes:pdf|max:20048',
         ]);
+ 
+        if ($validator->fails()) {
+            
+            return response()->json(['error' => $validator]);
+
+        }
 
         $user = Auth::user();
 
