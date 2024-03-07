@@ -176,6 +176,8 @@ ROOT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
 
 PERSIST_DIRECTORY = f"{ROOT_DIRECTORY}/DB/user-" + "1"
 
+print(sys.argv[2])
+
 MODELS_PATH = "./models"
 
 # Can be changed to a specific number

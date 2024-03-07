@@ -47,7 +47,7 @@ class FileController extends Controller
 
         $pythonScriptPath = app_path(). '/ai/ingest.py';
 
-        $process = new Process(['python3', $pythonScriptPath, $filePath, $user->id]);
+        $process = new Process(['python3', $pythonScriptPath, $filePath, $userId]);
 
         try {
             // Execute the process
