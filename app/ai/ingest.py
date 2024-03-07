@@ -350,6 +350,6 @@ if __name__ == "__main__":
 
     # TARGET_DIRECTORY = PERSIST_DIRECTORY + sys.argv[2]
 
-    TARGET_DIRECTORY = PERSIST_DIRECTORY + '/DB'
+    TARGET_DIRECTORY = PERSIST_DIRECTORY
     
     main()
