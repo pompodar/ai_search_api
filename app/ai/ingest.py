@@ -172,7 +172,7 @@ MODEL_BASENAME = "llama-2-7b-chat.Q4_K_M.gguf"
 ROOT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
 
 # Define the folder for storing database
-SOURCE_DIRECTORY = f"{ROOT_DIRECTORY}/SOURCE_DOCUMENTS"
+# SOURCE_DIRECTORY = f"{ROOT_DIRECTORY}/SOURCE_DOCUMENTS"
 
 PERSIST_DIRECTORY = f"{ROOT_DIRECTORY}/DB"
 
@@ -344,10 +344,12 @@ if __name__ == "__main__":
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
     )
 
-    # SOURCE_DIRECTORY = '/home/ai_search/laravel/storage/app/public/users-files/p1'
+    SOURCE_DIRECTORY = '/home/optizavr/htdocs/www.optizavr.com/storage/app/public/users-files/user-1/'
     
-    SOURCE_DIRECTORY = sys.argv[1]
+    # SOURCE_DIRECTORY = sys.argv[1]
 
-    TARGET_DIRECTORY = PERSIST_DIRECTORY + sys.argv[2]
+    # TARGET_DIRECTORY = PERSIST_DIRECTORY + sys.argv[2]
+
+    TARGET_DIRECTORY = PERSIST_DIRECTORY + '/DB'
     
     main()
