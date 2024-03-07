@@ -14,7 +14,7 @@ export default function Dashboard({ auth }) {
 
                     <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 w-48">
 
-                        <Link className="p-6 text-gray-900" href="/my-files">My files</Link>
+                        <Link className="p-6 text-gray-900" href="/my-data">My data</Link>
 
                     </div>
 

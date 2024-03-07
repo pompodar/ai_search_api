@@ -62,31 +62,49 @@ export default function FileUpload({ auth }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <h1>Upload PDF</h1>
-                    <FileUploadForm fetchUserFiles={fetchUserFiles} />
 
-                    <h2 className="flex justify-center mt-4">Uploaded Files</h2>
-                    <ul className="user-files-list flex justify-center gap-4">
-                        {userFiles.map((file, index) => (
-                            <li className="user-files__item" key={index}>
-                                
-                                <button className="user-files-view-icon text-sm" onClick={() => handleFileSelect(file)}>
+                    {userFiles.length == 0 ? (
 
-                                    <AiFillFilePdf />
+                        <>
+
+                            <h1>Upload PDF</h1>
+
+                            <FileUploadForm fetchUserFiles={fetchUserFiles} />
+
+                        </>
+                    
+                    ) : (
+
+                        <>
+
+                            <h1>To change your data you have to first remove the file you already uploaded.</h1>
+
+                            <h2 className="flex justify-center mt-4">Uploaded File</h2>
+                            <ul className="user-files-list flex justify-center gap-4">
+                                {userFiles.map((file, index) => (
+                                    <li className="user-files__item" key={index}>
+                                        
+                                        <button className="user-files-view-icon text-sm" onClick={() => handleFileSelect(file)}>
+
+                                            <AiFillFilePdf />
+                                            
+                                            {file.filename}
+                                            
+                                        </button>
+                                        
+                                        <button className="user-files-delete-icon" onClick={() => handleDeleteFile(file.id)}>
                                     
-                                    {file.filename}
-                                    
-                                </button>
-                                
-                                <button className="user-files-delete-icon" onClick={() => handleDeleteFile(file.id)}>
-                            
-                                    <AiOutlineDelete />
+                                            <AiOutlineDelete />
 
-                                </button>
+                                        </button>
 
-                            </li>
-                        ))}
-                    </ul>
+                                    </li>
+                                ))}
+                            </ul>
+                        
+                        </>
+                        
+                    )}
 
                     <Modal
                         isOpen={isModalOpen}

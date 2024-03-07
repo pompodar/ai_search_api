@@ -69,7 +69,7 @@ export default function FileUpload({ auth }) {
                         <div className="loader"></div>
                     ) : (
                         answer ? (
-                            <p>{answer}</p>
+                            <p className="mt-4">{answer}</p>
                         ) : null
                     )}
                 </div>

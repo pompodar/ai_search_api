@@ -31,9 +31,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/my-files', function () {
-    return Inertia::render('UserFiles');
-})->middleware(['auth', 'verified'])->name('user_files');
+Route::get('/my-data', function () {
+    return Inertia::render('UserData');
+})->middleware(['auth', 'verified'])->name('user_data');
 
 Route::get('/testing-inviroment', function () {
     return Inertia::render('TestingInviroment');
@@ -45,7 +45,7 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::middleware(['auth', 'verified'])->post('/file/upload', [FileController::class, 'upload']);
+Route::middleware(['auth', 'verified'])->post('/file/upload_and_ingest', [FileController::class, 'upload_and_ingest']);
 
 Route::middleware(['auth', 'verified'])->get('/user/files', [FileController::class, 'getUserFiles']);
 

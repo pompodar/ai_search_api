@@ -11,7 +11,7 @@ use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class FileController extends Controller
 {
-    public function upload(Request $request)
+    public function upload_and_ingest(Request $request)
     {
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
@@ -41,46 +41,13 @@ class FileController extends Controller
         
         $user->files()->save($file);
 
-        return response()->json(['path' => $path, 'filename' => $fileName]);
-    }
-
-    public function deleteFile($userId, $fileId)
-    {
-
-        $user = Auth::user();
-        
-        $file = $user->files()->where('id', $fileId)->firstOrFail();
-
-        Storage::delete($file->path);
-
-        $file->delete();
-
-        return response()->json(['message' => 'File deleted successfully']);
-    }
-
-    public function getUserFiles()
-    {
-        $userFiles = Auth::user()->files()->get();
-
-        return response()->json(['files' => $userFiles]);
-    }
-
-    public function show($filename)
-    {
-        $file = Storage::disk('local')->path($filename);
-        return response()->file($file);
-    }
-
-    public function process()
-    {
-
         $userId = Auth::id();
 
-        $pdfsPath = public_path(). "\storage\users-files\p1\user-" . $userId;
+        $filePath = public_path(). "\storage\users-files\user-" . $userId;
 
         $pythonScriptPath = app_path(). '/ai/ingest.py';
 
-        $process = new Process(['python3', $pythonScriptPath, $pdfsPath. $userId]);
+        $process = new Process(['python3', $pythonScriptPath, $filePath, $user->id]);
 
         try {
             // Execute the process
@@ -98,6 +65,65 @@ class FileController extends Controller
             // Echo the error message
             echo "Error: " . $exception->getMessage();
         }
+
+        // return response()->json(['path' => $path, 'filename' => $fileName]);
+    }
+
+    public function deleteFile($userId, $fileId)
+    {
+
+        $user = Auth::user();
+
+        $userId = Auth::id();
+        
+        $file = $user->files()->where('id', $fileId)->firstOrFail();
+
+        Storage::delete($file->path);
+
+        function deleteDirectory($directory) {
+            if (!is_dir($directory)) {
+                return false;
+            }
+        
+            $files = scandir($directory);
+            foreach ($files as $file) {
+                if ($file !== '.' && $file !== '..') {
+                    $path = $directory . '/' . $file;
+                    if (is_dir($path)) {
+                        // Recursively delete subdirectories
+                        deleteDirectory($path);
+                    } else {
+                        // Delete files
+                        unlink($path);
+                    }
+                }
+            }
+        
+            // Delete the directory itself
+            return rmdir($directory);
+        }
+        
+        $directoryToDelete = app_path(). '/ai/DB/user-' . $userId;
+
+        $result = deleteDirectory($directoryToDelete);
+
+        $file->delete();
+
+        return response()->json(['message' => 'File deleted successfully']);
+    }
+
+
+    public function getUserFiles()
+    {
+        $userFiles = Auth::user()->files()->get();
+
+        return response()->json(['files' => $userFiles]);
+    }
+
+    public function show($filename)
+    {
+        $file = Storage::disk('local')->path($filename);
+        return response()->file($file);
     }
 
     public function search(Request $request)
