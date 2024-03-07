@@ -35,7 +35,7 @@ SHOW_SOURCES = True
 def get_vectorstore():
     embeddings = OpenAIEmbeddings()
 
-    vectordb = Chroma(persist_directory="/home/ai_search/laravel/app/ai/DB/pp1", embedding_function=embeddings)
+    vectordb = Chroma(persist_directory="/home/ai_search/laravel/app/ai/DB", embedding_function=embeddings)
 
     vectorstore = vectordb.as_retriever()
 
@@ -141,6 +141,8 @@ def main():
     # print(result)
 
 if __name__ == '__main__':
-    SOURCE_DIRECTORY = PERSIST_DIRECTORY + sys.argv[1]
+    # SOURCE_DIRECTORY = PERSIST_DIRECTORY + sys.argv[1]
+
+    SOURCE_DIRECTORY = PERSIST_DIRECTORY + '/DB'
 
     main()
