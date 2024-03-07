@@ -18,6 +18,12 @@ export default function Dashboard({ auth }) {
 
                     </div>
 
+                    <div className="bg-white overflow-hidden shadow-sm sm:rounded-lg p-4 w-60 mt-4">
+
+                        <Link className="p-6 text-gray-900" href="/testing-inviroment">Testing inviroment</Link>
+
+                    </div>
+
                 </div>
             </div>
         </AuthenticatedLayout>

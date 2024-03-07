@@ -62,7 +62,7 @@ export default function FileUpload({ auth }) {
 
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                    <h2>Upload PDF</h2>
+                    <h1>Upload PDF</h1>
                     <FileUploadForm fetchUserFiles={fetchUserFiles} />
 
                     <h2 className="flex justify-center mt-4">Uploaded Files</h2>

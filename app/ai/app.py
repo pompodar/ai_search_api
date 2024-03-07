@@ -18,19 +18,11 @@ from langchain.chains import RetrievalQA
 from langchain.vectorstores import Chroma
 from prompt_template_utils import get_prompt_template
 
-
-# from constants import (
-#     DOCUMENT_MAP,
-#     EMBEDDING_MODEL_NAME,
-#     INGEST_THREADS,
-#     PERSIST_DIRECTORY,
-# )
-
 ROOT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
 
 PERSIST_DIRECTORY = f"{ROOT_DIRECTORY}/DB"
 
-SHOW_SOURCES = True
+SHOW_SOURCES = False
 
 def get_vectorstore():
     embeddings = OpenAIEmbeddings()
@@ -39,24 +31,10 @@ def get_vectorstore():
 
     vectorstore = vectordb.as_retriever()
 
-    # print(vectorstore)
-
     return vectorstore
-
 
 def get_conversation_chain(vectorstore):
     LLM = ChatOpenAI()
-    # LLM = HuggingFaceHub(repo_id="google/flan-t5-xxl", model_kwargs={"temperature":1, "max_length":512})
-
-    # print(vectorstore.as_retriever(search_kwargs={"k": 5}))
-
-    # qa = VectorDBQA.from_chain_type(llm=LLM, chain_type="stuff", vectorstore=vectorstore.as_retriever())
-
-    # qa_chain = RetrievalQA.from_chain_type(
-    # llm=LLM,
-    # chain_type="stuff", 
-    # retriever=vectorstore, 
-    # return_source_documents=True)
 
     prompt, memory = get_prompt_template(promptTemplate_type="llama", history=False)
 
@@ -65,43 +43,32 @@ def get_conversation_chain(vectorstore):
         chain_type="stuff",
         retriever=vectorstore,
         return_source_documents=True,
-        verbose=True,
+        verbose=False,
         chain_type_kwargs={
-            "verbose": True,
+            "verbose": False,
             "prompt": prompt
         }
     )
 
     response = QA("What are these documents about?")
 
-    res, docs = response["result"], response["source_documents"]
+    res = response["result"]  # Get the answer part of the response
+
+    # Remove any log messages from the answer
+    # answer_lines = [line for line in res.split("\n") if not line.startswith(">")]
+
+    # Join the filtered lines to reconstruct the answer
+    # filtered_answer = "\n".join(answer_lines)
+
+    # Print the filtered answer
     print(f"\nAnswer: {res}\n")
 
-    print("Source Documents:")
-    for i, doc in enumerate(docs, start=1):
-        print(f"Document {i}:")
-        print(doc.page_content)
-        print("-------------------------------------")
+    # print("Source Documents:")
+    # for i, doc in enumerate(docs, start=1):
+    #     print(f"Document {i}:")
+    #     print(doc.page_content)
+    #     print("-------------------------------------")
     
-
-    # print(res)
-
-    # index = VectorStoreIndexWrapper(vectorstore=vectorstore)
-
-    # LLM = load_model(device_type=DEVICE_TYPE, model_id=MODEL_ID, model_basename=MODEL_BASENAME)
-    # prompt, memory = get_prompt_template(promptTemplate_type="llama", history=False)
-
-    # QA = RetrievalQA.from_chain_type(
-    #     llm=LLM,
-    #     chain_type="stuff",
-    #     retriever=RETRIEVER,
-    #     return_source_documents=SHOW_SOURCES,
-    #     chain_type_kwargs={
-    #         "prompt": "What are these docs about?",
-    #     },
-    # )
-
-    # print(vectorstore.as_retriever())
     memory = ConversationBufferMemory(
         memory_key='chat_history', return_messages=True)
     
@@ -129,8 +96,6 @@ def main():
 
     # create vector store
     vectorstore = get_vectorstore()
-
-    print(vectorstore)
 
     # create conversation chain
     get_conversation_chain(vectorstore)

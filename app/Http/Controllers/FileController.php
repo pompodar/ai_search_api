@@ -73,27 +73,67 @@ class FileController extends Controller
 
     public function process()
     {
+
         $userId = Auth::id();
 
         $pdfsPath = public_path(). "\storage\users-files\p1\user-" . $userId;
 
-        $pythonScriptPath = app_path(). '\ai\ingest.py';
+        $pythonScriptPath = app_path(). '/ai/ingest.py';
 
-        $process = new Process(['C:\Users\User\AppData\Local\Programs\Python\Python39\python.exe', $pythonScriptPath, $pdfsPath]);
+        $process = new Process(['python3', $pythonScriptPath, $pdfsPath]);
+
+        try {
+            // Execute the process
+            $process->run();
         
-        $command = '"' . 'C:\Users\User\AppData\Local\Programs\Python\Python39\python.exe' . '" "' . $pythonScriptPath . '" "' . $pdfsPath . '"';
+            // Check if the process was not successful
+            if (!$process->isSuccessful()) {
+                // Throw an exception with the process details
+                throw new ProcessFailedException($process);
+            } else {
+                // Process was successful, you can echo a success message or do something else
+                echo "Process executed successfully!";
+            }
+        } catch (ProcessFailedException $exception) {
+            // Echo the error message
+            echo "Error: " . $exception->getMessage();
+        }
+    }
 
-        exec($command, $output, $returnCode);
+    public function search(Request $request)
+    {
 
-        dd($output );
+        $userId = Auth::id();
 
-        // $process->run();
+        $request->validate([
+            'question' => 'required',
+        ]);
 
-        // if (!$process->isSuccessful()) {
-        //     throw new ProcessFailedException($process);
-        // }
+        $question = $request->input('question');
 
-        // // Return the output as JSON response
-        // return response()->json(['output' => $process->getOutput()]);
+        $pdfsPath = public_path(). "\storage\users-files\p1\user-" . $userId;
+
+        $pythonScriptPath = app_path(). '/ai/app.py';
+
+        $process = new Process(['python3', $pythonScriptPath, $pdfsPath]);
+
+        try {
+            // Execute the process
+            $process->run();
+        
+            // Check if the process was not successful
+            if (!$process->isSuccessful()) {
+                // Throw an exception with the process details
+                throw new ProcessFailedException($process);
+            } else {
+                // Process was successful, echo the output
+                echo "Process executed successfully!<br>";
+                // Get and echo the output
+                echo "Output: " . $process->getOutput();
+            }
+        } catch (ProcessFailedException $exception) {
+            // Echo the error message
+            echo "Error: " . $exception->getMessage();
+        }
     }
 }

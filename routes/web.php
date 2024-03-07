@@ -35,6 +35,10 @@ Route::get('/my-files', function () {
     return Inertia::render('UserFiles');
 })->middleware(['auth', 'verified'])->name('user_files');
 
+Route::get('/testing-inviroment', function () {
+    return Inertia::render('TestingInviroment');
+})->middleware(['auth', 'verified'])->name('testing_inviroment');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
@@ -48,6 +52,8 @@ Route::middleware(['auth', 'verified'])->get('/user/files', [FileController::cla
 Route::middleware(['auth', 'verified'])->delete('/user/{userId}/files/{fileId}', [FileController::class, 'deleteFile']);
 
 Route::middleware(['auth', 'verified'])->get('/process', [FileController::class, 'process']);
+
+Route::middleware(['auth', 'verified'])->post('/search', [FileController::class, 'search']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/{userId}/files', [APIController::class, 'index']);
