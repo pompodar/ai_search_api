@@ -25,6 +25,10 @@ class FileController extends Controller
         $validator = Validator::make($request->all(), [
             'pdf' => 'required|mimes:pdf|max:20048',
         ]);
+
+        // $validator = Validator::make($input, $rules, $messages = [
+        //     'required' => 'The :attribute field is required.',
+        // ]);
  
         if ($validator->fails()) {
             
