@@ -207,18 +207,6 @@
         },
         {
             "name": "doctrine/inflector",
-<<<<<<< HEAD
-            "version": "2.0.9",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/doctrine/inflector.git",
-                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/inflector/zipball/2930cd5ef353871c821d5c43ed030d39ac8cfe65",
-                "reference": "2930cd5ef353871c821d5c43ed030d39ac8cfe65",
-=======
             "version": "2.0.10",
             "source": {
                 "type": "git",
@@ -229,7 +217,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/doctrine/inflector/zipball/5817d0659c5b50c9b950feb9af7b9668e2c436bc",
                 "reference": "5817d0659c5b50c9b950feb9af7b9668e2c436bc",
->>>>>>> 064a684 (class to className)
                 "shasum": ""
             },
             "require": {
@@ -291,11 +278,7 @@
             ],
             "support": {
                 "issues": "https://github.com/doctrine/inflector/issues",
-<<<<<<< HEAD
-                "source": "https://github.com/doctrine/inflector/tree/2.0.9"
-=======
                 "source": "https://github.com/doctrine/inflector/tree/2.0.10"
->>>>>>> 064a684 (class to className)
             },
             "funding": [
                 {
@@ -311,11 +294,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2024-01-15T18:05:13+00:00"
-=======
             "time": "2024-02-18T20:23:39+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "doctrine/lexer",
@@ -1140,18 +1119,6 @@
         },
         {
             "name": "laravel/framework",
-<<<<<<< HEAD
-            "version": "v10.44.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/framework.git",
-                "reference": "1199dbe361787bbe9648131a79f53921b4148cf6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/framework/zipball/1199dbe361787bbe9648131a79f53921b4148cf6",
-                "reference": "1199dbe361787bbe9648131a79f53921b4148cf6",
-=======
             "version": "v10.45.1",
             "source": {
                 "type": "git",
@@ -1162,7 +1129,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/framework/zipball/dcf5d1d722b84ad38a5e053289130b6962f830bd",
                 "reference": "dcf5d1d722b84ad38a5e053289130b6962f830bd",
->>>>>>> 064a684 (class to className)
                 "shasum": ""
             },
             "require": {
@@ -1355,11 +1321,7 @@
                 "issues": "https://github.com/laravel/framework/issues",
                 "source": "https://github.com/laravel/framework"
             },
-<<<<<<< HEAD
-            "time": "2024-02-13T16:01:16+00:00"
-=======
             "time": "2024-02-21T14:07:36+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "laravel/prompts",
@@ -2362,18 +2324,6 @@
         },
         {
             "name": "nikic/php-parser",
-<<<<<<< HEAD
-            "version": "v5.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/nikic/PHP-Parser.git",
-                "reference": "4a21235f7e56e713259a6f76bf4b5ea08502b9dc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/4a21235f7e56e713259a6f76bf4b5ea08502b9dc",
-                "reference": "4a21235f7e56e713259a6f76bf4b5ea08502b9dc",
-=======
             "version": "v5.0.1",
             "source": {
                 "type": "git",
@@ -2384,7 +2334,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/nikic/PHP-Parser/zipball/2218c2252c874a4624ab2f613d86ac32d227bc69",
                 "reference": "2218c2252c874a4624ab2f613d86ac32d227bc69",
->>>>>>> 064a684 (class to className)
                 "shasum": ""
             },
             "require": {
@@ -2427,15 +2376,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nikic/PHP-Parser/issues",
-<<<<<<< HEAD
-                "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.0"
-            },
-            "time": "2024-01-07T17:17:35+00:00"
-=======
                 "source": "https://github.com/nikic/PHP-Parser/tree/v5.0.1"
             },
             "time": "2024-02-21T19:24:10+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "nunomaduro/termwind",
@@ -3410,22 +3353,6 @@
         },
         {
             "name": "symfony/css-selector",
-<<<<<<< HEAD
-            "version": "v6.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/css-selector.git",
-                "reference": "ee0f7ed5cf298cc019431bb3b3977ebc52b86229"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/css-selector/zipball/ee0f7ed5cf298cc019431bb3b3977ebc52b86229",
-                "reference": "ee0f7ed5cf298cc019431bb3b3977ebc52b86229",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1"
-=======
             "version": "v7.0.3",
             "source": {
                 "type": "git",
@@ -3440,7 +3367,6 @@
             },
             "require": {
                 "php": ">=8.2"
->>>>>>> 064a684 (class to className)
             },
             "type": "library",
             "autoload": {
@@ -3472,11 +3398,7 @@
             "description": "Converts CSS selectors to XPath expressions",
             "homepage": "https://symfony.com",
             "support": {
-<<<<<<< HEAD
-                "source": "https://github.com/symfony/css-selector/tree/v6.4.3"
-=======
                 "source": "https://github.com/symfony/css-selector/tree/v7.0.3"
->>>>>>> 064a684 (class to className)
             },
             "funding": [
                 {
@@ -3492,11 +3414,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2024-01-23T14:51:35+00:00"
-=======
             "time": "2024-01-23T15:02:46+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "symfony/deprecation-contracts",
@@ -3642,26 +3560,6 @@
         },
         {
             "name": "symfony/event-dispatcher",
-<<<<<<< HEAD
-            "version": "v6.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/event-dispatcher.git",
-                "reference": "ae9d3a6f3003a6caf56acd7466d8d52378d44fef"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/event-dispatcher/zipball/ae9d3a6f3003a6caf56acd7466d8d52378d44fef",
-                "reference": "ae9d3a6f3003a6caf56acd7466d8d52378d44fef",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "symfony/event-dispatcher-contracts": "^2.5|^3"
-            },
-            "conflict": {
-                "symfony/dependency-injection": "<5.4",
-=======
             "version": "v7.0.3",
             "source": {
                 "type": "git",
@@ -3680,7 +3578,6 @@
             },
             "conflict": {
                 "symfony/dependency-injection": "<6.4",
->>>>>>> 064a684 (class to className)
                 "symfony/service-contracts": "<2.5"
             },
             "provide": {
@@ -3689,15 +3586,6 @@
             },
             "require-dev": {
                 "psr/log": "^1|^2|^3",
-<<<<<<< HEAD
-                "symfony/config": "^5.4|^6.0|^7.0",
-                "symfony/dependency-injection": "^5.4|^6.0|^7.0",
-                "symfony/error-handler": "^5.4|^6.0|^7.0",
-                "symfony/expression-language": "^5.4|^6.0|^7.0",
-                "symfony/http-foundation": "^5.4|^6.0|^7.0",
-                "symfony/service-contracts": "^2.5|^3",
-                "symfony/stopwatch": "^5.4|^6.0|^7.0"
-=======
                 "symfony/config": "^6.4|^7.0",
                 "symfony/dependency-injection": "^6.4|^7.0",
                 "symfony/error-handler": "^6.4|^7.0",
@@ -3705,7 +3593,6 @@
                 "symfony/http-foundation": "^6.4|^7.0",
                 "symfony/service-contracts": "^2.5|^3",
                 "symfony/stopwatch": "^6.4|^7.0"
->>>>>>> 064a684 (class to className)
             },
             "type": "library",
             "autoload": {
@@ -3733,11 +3620,7 @@
             "description": "Provides tools that allow your application components to communicate with each other by dispatching events and listening to them",
             "homepage": "https://symfony.com",
             "support": {
-<<<<<<< HEAD
-                "source": "https://github.com/symfony/event-dispatcher/tree/v6.4.3"
-=======
                 "source": "https://github.com/symfony/event-dispatcher/tree/v7.0.3"
->>>>>>> 064a684 (class to className)
             },
             "funding": [
                 {
@@ -3753,11 +3636,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2024-01-23T14:51:35+00:00"
-=======
             "time": "2024-01-23T15:02:46+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "symfony/event-dispatcher-contracts",
@@ -5192,22 +5071,6 @@
         },
         {
             "name": "symfony/string",
-<<<<<<< HEAD
-            "version": "v6.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/string.git",
-                "reference": "7a14736fb179876575464e4658fce0c304e8c15b"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/string/zipball/7a14736fb179876575464e4658fce0c304e8c15b",
-                "reference": "7a14736fb179876575464e4658fce0c304e8c15b",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-=======
             "version": "v7.0.3",
             "source": {
                 "type": "git",
@@ -5222,7 +5085,6 @@
             },
             "require": {
                 "php": ">=8.2",
->>>>>>> 064a684 (class to className)
                 "symfony/polyfill-ctype": "~1.8",
                 "symfony/polyfill-intl-grapheme": "~1.0",
                 "symfony/polyfill-intl-normalizer": "~1.0",
@@ -5232,19 +5094,11 @@
                 "symfony/translation-contracts": "<2.5"
             },
             "require-dev": {
-<<<<<<< HEAD
-                "symfony/error-handler": "^5.4|^6.0|^7.0",
-                "symfony/http-client": "^5.4|^6.0|^7.0",
-                "symfony/intl": "^6.2|^7.0",
-                "symfony/translation-contracts": "^2.5|^3.0",
-                "symfony/var-exporter": "^5.4|^6.0|^7.0"
-=======
                 "symfony/error-handler": "^6.4|^7.0",
                 "symfony/http-client": "^6.4|^7.0",
                 "symfony/intl": "^6.4|^7.0",
                 "symfony/translation-contracts": "^2.5|^3.0",
                 "symfony/var-exporter": "^6.4|^7.0"
->>>>>>> 064a684 (class to className)
             },
             "type": "library",
             "autoload": {
@@ -5283,11 +5137,7 @@
                 "utf8"
             ],
             "support": {
-<<<<<<< HEAD
-                "source": "https://github.com/symfony/string/tree/v6.4.3"
-=======
                 "source": "https://github.com/symfony/string/tree/v7.0.3"
->>>>>>> 064a684 (class to className)
             },
             "funding": [
                 {
@@ -5303,11 +5153,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2024-01-25T09:26:29+00:00"
-=======
             "time": "2024-01-29T15:41:16+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "symfony/translation",
@@ -5643,18 +5489,6 @@
         },
         {
             "name": "tightenco/ziggy",
-<<<<<<< HEAD
-            "version": "v1.8.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/tighten/ziggy.git",
-                "reference": "22dafc51f3f5ae5ed51f7cb6b566e6b9537f6937"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/tighten/ziggy/zipball/22dafc51f3f5ae5ed51f7cb6b566e6b9537f6937",
-                "reference": "22dafc51f3f5ae5ed51f7cb6b566e6b9537f6937",
-=======
             "version": "v1.8.2",
             "source": {
                 "type": "git",
@@ -5665,7 +5499,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/tighten/ziggy/zipball/939576ad0f3d3e633a9401c8c377bc7bc873ff35",
                 "reference": "939576ad0f3d3e633a9401c8c377bc7bc873ff35",
->>>>>>> 064a684 (class to className)
                 "shasum": ""
             },
             "require": {
@@ -5673,13 +5506,8 @@
                 "laravel/framework": ">=5.4@dev"
             },
             "require-dev": {
-<<<<<<< HEAD
-                "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0",
-                "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0 || ^9.0"
-=======
                 "orchestra/testbench": "^3.0 || ^4.0 || ^5.0 || ^6.0 || ^7.0 || ^8.0 || ^9.0",
                 "phpunit/phpunit": "^6.0 || ^7.0 || ^8.0 || ^9.0 || ^10.0"
->>>>>>> 064a684 (class to className)
             },
             "type": "library",
             "extra": {
@@ -5722,15 +5550,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tighten/ziggy/issues",
-<<<<<<< HEAD
-                "source": "https://github.com/tighten/ziggy/tree/v1.8.1"
-            },
-            "time": "2023-10-12T18:31:26+00:00"
-=======
                 "source": "https://github.com/tighten/ziggy/tree/v1.8.2"
             },
             "time": "2024-02-20T19:56:04+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "tijsverkoyen/css-to-inline-styles",
@@ -6190,18 +6012,6 @@
         },
         {
             "name": "laravel/breeze",
-<<<<<<< HEAD
-            "version": "v1.28.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/breeze.git",
-                "reference": "1e48e29d3f769bb90bbdf2934c52f4612e3b5b47"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/breeze/zipball/1e48e29d3f769bb90bbdf2934c52f4612e3b5b47",
-                "reference": "1e48e29d3f769bb90bbdf2934c52f4612e3b5b47",
-=======
             "version": "v1.28.3",
             "source": {
                 "type": "git",
@@ -6212,7 +6022,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/breeze/zipball/c8bd0a8557aa2b0597bae762d9926b819d886419",
                 "reference": "c8bd0a8557aa2b0597bae762d9926b819d886419",
->>>>>>> 064a684 (class to className)
                 "shasum": ""
             },
             "require": {
@@ -6261,22 +6070,6 @@
                 "issues": "https://github.com/laravel/breeze/issues",
                 "source": "https://github.com/laravel/breeze"
             },
-<<<<<<< HEAD
-            "time": "2024-02-13T02:26:19+00:00"
-        },
-        {
-            "name": "laravel/pint",
-            "version": "v1.13.11",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/pint.git",
-                "reference": "60a163c3e7e3346a1dec96d3e6f02e6465452552"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/pint/zipball/60a163c3e7e3346a1dec96d3e6f02e6465452552",
-                "reference": "60a163c3e7e3346a1dec96d3e6f02e6465452552",
-=======
             "time": "2024-02-19T02:47:27+00:00"
         },
         {
@@ -6291,7 +6084,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/pint/zipball/6b127276e3f263f7bb17d5077e9e0269e61b2a0e",
                 "reference": "6b127276e3f263f7bb17d5077e9e0269e61b2a0e",
->>>>>>> 064a684 (class to className)
                 "shasum": ""
             },
             "require": {
@@ -6344,22 +6136,6 @@
                 "issues": "https://github.com/laravel/pint/issues",
                 "source": "https://github.com/laravel/pint"
             },
-<<<<<<< HEAD
-            "time": "2024-02-13T17:20:13+00:00"
-        },
-        {
-            "name": "laravel/sail",
-            "version": "v1.27.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/laravel/sail.git",
-                "reference": "3047e1a157fad968cc5f6e620d5cbe5c0867fffd"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/laravel/sail/zipball/3047e1a157fad968cc5f6e620d5cbe5c0867fffd",
-                "reference": "3047e1a157fad968cc5f6e620d5cbe5c0867fffd",
-=======
             "time": "2024-02-20T17:38:05+00:00"
         },
         {
@@ -6374,7 +6150,6 @@
                 "type": "zip",
                 "url": "https://api.github.com/repos/laravel/sail/zipball/a05861ca9b04558b1ec1f36cff521a271a259b6c",
                 "reference": "a05861ca9b04558b1ec1f36cff521a271a259b6c",
->>>>>>> 064a684 (class to className)
                 "shasum": ""
             },
             "require": {
@@ -6423,11 +6198,7 @@
                 "issues": "https://github.com/laravel/sail/issues",
                 "source": "https://github.com/laravel/sail"
             },
-<<<<<<< HEAD
-            "time": "2024-02-08T15:24:21+00:00"
-=======
             "time": "2024-02-20T15:11:00+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "mockery/mockery",
@@ -8423,30 +8194,6 @@
         },
         {
             "name": "symfony/yaml",
-<<<<<<< HEAD
-            "version": "v6.4.3",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/symfony/yaml.git",
-                "reference": "d75715985f0f94f978e3a8fa42533e10db921b90"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/d75715985f0f94f978e3a8fa42533e10db921b90",
-                "reference": "d75715985f0f94f978e3a8fa42533e10db921b90",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=8.1",
-                "symfony/deprecation-contracts": "^2.5|^3",
-                "symfony/polyfill-ctype": "^1.8"
-            },
-            "conflict": {
-                "symfony/console": "<5.4"
-            },
-            "require-dev": {
-                "symfony/console": "^5.4|^6.0|^7.0"
-=======
             "version": "v7.0.3",
             "source": {
                 "type": "git",
@@ -8468,7 +8215,6 @@
             },
             "require-dev": {
                 "symfony/console": "^6.4|^7.0"
->>>>>>> 064a684 (class to className)
             },
             "bin": [
                 "Resources/bin/yaml-lint"
@@ -8499,11 +8245,7 @@
             "description": "Loads and dumps YAML files",
             "homepage": "https://symfony.com",
             "support": {
-<<<<<<< HEAD
-                "source": "https://github.com/symfony/yaml/tree/v6.4.3"
-=======
                 "source": "https://github.com/symfony/yaml/tree/v7.0.3"
->>>>>>> 064a684 (class to className)
             },
             "funding": [
                 {
@@ -8519,11 +8261,7 @@
                     "type": "tidelift"
                 }
             ],
-<<<<<<< HEAD
-            "time": "2024-01-23T14:51:35+00:00"
-=======
             "time": "2024-01-23T15:02:46+00:00"
->>>>>>> 064a684 (class to className)
         },
         {
             "name": "theseer/tokenizer",
