@@ -80,7 +80,7 @@ class FileController extends Controller
 
         $pythonScriptPath = app_path(). '/ai/ingest.py';
 
-        $process = new Process(['python3', $pythonScriptPath, $pdfsPath]);
+        $process = new Process(['python3', $pythonScriptPath, $pdfsPath. $userId]);
 
         try {
             // Execute the process
@@ -111,11 +111,9 @@ class FileController extends Controller
 
         $question = $request->input('question');
 
-        $pdfsPath = public_path(). "\storage\users-files\p1\user-" . $userId;
-
         $pythonScriptPath = app_path(). '/ai/app.py';
 
-        $process = new Process(['python3', $pythonScriptPath, $pdfsPath]);
+        $process = new Process(['python3', $pythonScriptPath, $question, $userId]);
 
         try {
             // Execute the process
@@ -126,10 +124,8 @@ class FileController extends Controller
                 // Throw an exception with the process details
                 throw new ProcessFailedException($process);
             } else {
-                // Process was successful, echo the output
-                echo "Process executed successfully!<br>";
                 // Get and echo the output
-                echo "Output: " . $process->getOutput();
+                echo $process->getOutput();
             }
         } catch (ProcessFailedException $exception) {
             // Echo the error message

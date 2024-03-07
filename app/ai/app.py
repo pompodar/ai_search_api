@@ -27,7 +27,7 @@ SHOW_SOURCES = False
 def get_vectorstore():
     embeddings = OpenAIEmbeddings()
 
-    vectordb = Chroma(persist_directory="/home/optizavr/htdocs/www.optizavr.com/app/ai/DB", embedding_function=embeddings)
+    vectordb = Chroma(persist_directory="/home/optizavr/htdocs/www.optizavr.com/app/ai/DB/user-" + sys.argv[2], embedding_function=embeddings)
 
     vectorstore = vectordb.as_retriever()
 
@@ -50,7 +50,7 @@ def get_conversation_chain(vectorstore):
         }
     )
 
-    response = QA("What are these documents about?")
+    response = QA(QUESTION)
 
     res = response["result"]  # Get the answer part of the response
 
@@ -61,7 +61,7 @@ def get_conversation_chain(vectorstore):
     # filtered_answer = "\n".join(answer_lines)
 
     # Print the filtered answer
-    print(f"\nAnswer: {res}\n")
+    print(res)
 
     # print("Source Documents:")
     # for i, doc in enumerate(docs, start=1):
@@ -92,7 +92,7 @@ def main():
     # if "chat_history" not in st.session_state:
     #     st.session_state.chat_history = None
 
-    user_question = "What are these docs I gave you about?"
+    user_question = QUESTION
 
     # create vector store
     vectorstore = get_vectorstore()
@@ -106,8 +106,10 @@ def main():
     # print(result)
 
 if __name__ == '__main__':
+    QUESTION = sys.argv[1]
+
     # SOURCE_DIRECTORY = PERSIST_DIRECTORY + sys.argv[1]
 
-    SOURCE_DIRECTORY = PERSIST_DIRECTORY + '/DB/'
+    SOURCE_DIRECTORY = PERSIST_DIRECTORY + '/DB/user-' + sys.argv[2] + '/'
 
     main()

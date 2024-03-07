@@ -33,7 +33,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                 </div>
 
                 <div className="max-w-7xl mx-auto p-6 lg:p-8">
-                    <div className="flex justify-center">
+                    <div className="flex justify-center flex-col">
                         <svg
                             viewBox="0 0 62 65"
                             fill="none"
@@ -45,6 +45,13 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
                                 fill="#FF2D20"
                             />
                         </svg>
+                        
+                        <h1 className="text-center mt-4 font-bold text-lg">
+            
+                            A Better AI Search at Your Fingerprints
+
+                        </h1>
+
                     </div>
 
                     <div className="mt-16">
