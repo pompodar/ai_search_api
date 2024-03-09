@@ -42,7 +42,7 @@ def get_conversation_chain(vectorstore):
         llm=LLM,
         chain_type="stuff",
         retriever=vectorstore,
-        return_source_documents=True,
+        return_source_documents=False,
         verbose=False,
         chain_type_kwargs={
             "verbose": False,
@@ -61,7 +61,7 @@ def get_conversation_chain(vectorstore):
     # filtered_answer = "\n".join(answer_lines)
 
     # Print the filtered answer
-    print(res)
+    print(res.replace('[INST]<<SYS>> ', '').replace('<</SYS>>', ''))
 
     # print("Source Documents:")
     # for i, doc in enumerate(docs, start=1):
