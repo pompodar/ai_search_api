@@ -123,7 +123,7 @@ def get_vectorstore():
 def get_conversation_chain(vectorstore):
     LLM = ChatOpenAI()
 
-    prompt, memory = get_prompt_template(promptTemplate_type="llama", history=False)
+    prompt, memory = get_prompt_template(promptTemplate_type="llama", history=True)
 
     QA = RetrievalQA.from_chain_type(
         llm=LLM,
