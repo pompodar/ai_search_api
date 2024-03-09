@@ -148,7 +148,8 @@ def get_conversation_chain(vectorstore):
     # filtered_answer = "\n".join(answer_lines)
 
     # Print the filtered answer
-    print(res.replace('[INST]<<SYS>> ', '').replace('<</SYS>>', '').replace('[INST]<<SYS>>', ''))
+    res = res.replace('[INST]<<SYS>> ', '').replace('<</SYS>>', '').replace('[INST]<<SYS>>', '')
+    print(res)
 
     # print("Source Documents:")
     # for i, doc in enumerate(docs, start=1):
