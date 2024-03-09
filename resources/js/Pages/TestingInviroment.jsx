@@ -10,6 +10,9 @@ export default function FileUpload({ auth }) {
     const [userFiles, setUserFiles] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [question, setQuestion] = useState("");
+
+    const [initialPrompt, setInitialPrompt] = useState("");
+
     const [answer, setAnswer] = useState("");
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -36,6 +39,9 @@ export default function FileUpload({ auth }) {
         setIsLoading(true);
         const formData = new FormData();
         formData.append('question', question);
+
+        formData.append('initialPrompt', initialPrompt);
+
         axios.post('/search', formData)
             .then(response => {
                 setIsLoading(false);
@@ -56,6 +62,11 @@ export default function FileUpload({ auth }) {
                     <h1>Testing Inviroment</h1>
                     {userFiles.length > 0 ? (
                         <form onSubmit={handleSubmit} className="mt-4 flex flex-col">
+                            <label className="flex flex-col">
+                                Enter the initial prompt:
+                                <textarea type="text" name="initial_prompt" onChange={(e) => setInitialPrompt(e.target.value)}></textarea>
+                            </label>
+
                             <label className="flex flex-col">
                                 Enter your question:
                                 <textarea type="text" name="question" onChange={(e) => setQuestion(e.target.value)}></textarea>

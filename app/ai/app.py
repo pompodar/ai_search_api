@@ -16,7 +16,94 @@ from langchain.indexes.vectorstore import VectorStoreIndexWrapper
 from langchain.chains import VectorDBQA
 from langchain.chains import RetrievalQA
 from langchain.vectorstores import Chroma
-from prompt_template_utils import get_prompt_template
+"""
+This file implements prompt template for llama based models. 
+Modify the prompt template based on the model you select. 
+This seems to have significant impact on the output of the LLM.
+"""
+from langchain.prompts import PromptTemplate
+
+# this is specific to Llama-2.
+
+# system_prompt = """You are a helpful assistant, you will use the provided context (a document) to answer the user"s questions.
+# Read the given context before answering questions and think step by step. If you can not answer a user question based on 
+# the provided context, inform the user. Do not use any information other than that in the document provided to you for answering the user. Provide a detailed answer to the question. Answer only in the language the user wrote in. If you you are asked about something not related to the context answer that this questionis not relavent! in the language the user wrote in!"""
+
+system_prompt = sys.argv[3]
+
+def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=True):
+    if promptTemplate_type == "llama":
+        B_INST, E_INST = "[INST]", "[/INST]"
+        B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
+        SYSTEM_PROMPT = B_SYS + system_prompt + E_SYS
+        if history:
+            instruction = """
+            Context: {history} \n {context}
+            User: {question}"""
+
+            prompt_template = B_INST + SYSTEM_PROMPT + instruction + E_INST
+            prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
+        else:
+            instruction = """
+            Context: {context}
+            User: {question}"""
+
+            prompt_template = B_INST + SYSTEM_PROMPT + instruction + E_INST
+            prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
+    elif promptTemplate_type == "mistral":
+        B_INST, E_INST = "<s>[INST] ", " [/INST]"
+        if history:
+            prompt_template = (
+                B_INST
+                + system_prompt
+                + """
+    
+            Context: {history} \n {context}
+            User: {question}"""
+                + E_INST
+            )
+            prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
+        else:
+            prompt_template = (
+                B_INST
+                + system_prompt
+                + """
+            
+            Context: {context}
+            User: {question}"""
+                + E_INST
+            )
+            prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
+    else:
+        # change this based on the model you have selected.
+        if history:
+            prompt_template = (
+                system_prompt
+                + """
+    
+            Context: {history} \n {context}
+            User: {question}
+            Answer:"""
+            )
+            prompt = PromptTemplate(input_variables=["history", "context", "question"], template=prompt_template)
+        else:
+            prompt_template = (
+                system_prompt
+                + """
+            
+            Context: {context}
+            User: {question}
+            Answer:"""
+            )
+            prompt = PromptTemplate(input_variables=["context", "question"], template=prompt_template)
+
+    memory = ConversationBufferMemory(input_key="question", memory_key="history")
+
+    return (
+        prompt,
+        memory,
+    )
+
 
 ROOT_DIRECTORY = os.path.dirname(os.path.realpath(__file__))
 
@@ -61,7 +148,7 @@ def get_conversation_chain(vectorstore):
     # filtered_answer = "\n".join(answer_lines)
 
     # Print the filtered answer
-    print(res.replace('[INST]<<SYS>> ', '').replace('<</SYS>>', ''))
+    print(res.replace('[INST]<<SYS>> ', '').replace('<</SYS>>', '').replace('[INST]<<SYS>>', ''))
 
     # print("Source Documents:")
     # for i, doc in enumerate(docs, start=1):
