@@ -17,7 +17,7 @@ const FileUploadForm = ({ fetchUserFiles }) => {
         setNotice("");
 
         const formData = new FormData();
-        formData.append('pdf', file);
+        formData.append('file', file);
 
         axios.post('/file/upload_and_ingest', formData)
             .then(response => {
@@ -27,7 +27,7 @@ const FileUploadForm = ({ fetchUserFiles }) => {
                 console.log(response);
 
                 if (response.data.error) {
-                    setNotice("Please, provide a valid pdf file, max size: 20 Mb.");
+                    setNotice("Please, provide a file with a valid extension: pdf, csv, xls, xlsx, doc, docx, txt; max size: 20 Mb.");
                 } else {
                     setNotice(response.data);
                 }

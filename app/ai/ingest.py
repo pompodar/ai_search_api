@@ -32,6 +32,8 @@ DOCUMENT_MAP = {
     # ".pdf": PDFMinerLoader,
     ".pdf": UnstructuredFileLoader,
     ".csv": CSVLoader,
+    ".xls": CSVLoader,
+    ".xlsx": CSVLoader,
     ".docx": Docx2txtLoader,
     ".doc": Docx2txtLoader,
 }

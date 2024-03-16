@@ -18,13 +18,9 @@ class FileController extends Controller
             return response()->json(['error' => 'Unauthorized'], 401);
         }
 
-        // $request->validate([
-        //     'pdf' => 'required|mimes:pdf|max:2048',
-        // ]);
-
         $validator = Validator::make($request->all(), [
-            'pdf' => 'required|mimes:pdf|max:20048',
-        ]);
+            'file' => 'required|mimes:pdf,csv,xls,xlsx,doc,docx,txt|max:20048',
+        ]);        
 
         // $validator = Validator::make($input, $rules, $messages = [
         //     'required' => 'The :attribute field is required.',
