@@ -72,6 +72,7 @@ class FileController extends Controller
             if (!$process->isSuccessful()) {
                 // Throw an exception with the process details
                 throw new ProcessFailedException($process);
+                echo "error";
             } else {
                 // Process was successful, you can echo a success message or do something else
                 echo "Process executed successfully!";
