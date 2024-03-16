@@ -34,7 +34,7 @@ class FileController extends Controller
 
         $user = Auth::user();
 
-        $uploadedFile = $request->file('pdf');
+        $uploadedFile = $request->file('file');
         $originalFilename = $uploadedFile->getClientOriginalName();
 
         $fileName = $originalFilename;
@@ -54,11 +54,11 @@ class FileController extends Controller
 
         $userId = Auth::id();
 
-        $filePath = public_path(). "\storage\users-files\user-" . $userId;
+        $filesPath = public_path(). "\storage\users-files\user-" . $userId;
 
         $pythonScriptPath = app_path(). '/ai/ingest.py';
 
-        $process = new Process(['python3', $pythonScriptPath, $filePath, $userId]);
+        $process = new Process(['python3', $pythonScriptPath, $filesPath, $userId]);
 
         try {
             // Execute the process
@@ -117,11 +117,35 @@ class FileController extends Controller
         
         $directoryToDelete = app_path(). '/ai/DB/user-' . $userId;
 
+        // Process was successful, you can echo a success message or do something else
         $result = deleteDirectory($directoryToDelete);
 
         $file->delete();
 
-        return response()->json(['message' => 'File deleted successfully']);
+        $filesPath = public_path(). "\storage\users-files\user-" . $userId;
+
+        $pythonScriptPath = app_path(). '/ai/ingest.py';
+
+        $process = new Process(['python3', $pythonScriptPath, $filesPath, $userId]);
+
+        try {
+            // Execute the process
+            $process->run();
+        
+            // Check if the process was not successful
+            if (!$process->isSuccessful()) {
+                // Throw an exception with the process details
+                throw new ProcessFailedException($process);
+                echo "error";
+            } else {
+
+                return response()->json(['message' => 'Process executed successfully!']);
+            }
+        } catch (ProcessFailedException $exception) {
+            // Echo the error message
+            echo "Error: " . $exception->getMessage();
+        }
+
     }
 
 

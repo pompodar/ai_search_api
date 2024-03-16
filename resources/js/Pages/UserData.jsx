@@ -16,6 +16,10 @@ export default function FileUpload({ auth }) {
     const [selectedFile, setSelectedFile] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    const [isLoading, setIsLoading] = useState(false);
+
+    const [notice, setNotice] = useState("");
+
     useEffect(() => {
         fetchUserFiles();
     }, []);
@@ -46,13 +50,26 @@ export default function FileUpload({ auth }) {
             return;
         }
 
+        setNotice("");
+
+        setIsLoading(true);
+
         try {
-            await axios.delete(`/user/${auth.user.id}/files/${fileId}`);
+            const response = await axios.delete(`/user/${auth.user.id}/files/${fileId}`);
             
             fetchUserFiles();
 
+            setNotice(response.data);
+
+            setIsLoading(false);
+
         } catch (error) {
             console.error('Error deleting file:', error);
+
+            setNotice(error);
+
+            setIsLoading(false);
+
         }
     };
 
@@ -67,7 +84,7 @@ export default function FileUpload({ auth }) {
 
                         <>
 
-                            <h1>Upload PDF, max size: 20 Mb</h1>
+                            <h1>You can upload up to 5 files. Valid extensions: pdf, csv, xls, xlsx, doc, docx, txt; max size: 20 Mb</h1>
 
                             <FileUploadForm fetchUserFiles={fetchUserFiles} />
 
@@ -77,20 +94,37 @@ export default function FileUpload({ auth }) {
 
                         <>
 
-                            <h1>To change your data you have to first remove the file you already uploaded.</h1>
+                            {userFiles.length < 5 ? (
+
+                            <>
+
+                                <h1>You can upload up to 5 files. Valid extensions: pdf, csv, xls, xlsx, doc, docx, txt; max size: 20 Mb</h1>
+
+                                <FileUploadForm fetchUserFiles={fetchUserFiles} />
+
+                            </>
+
+                            ) : (
+
+                                <h1>To change your data you have to first remove some file/files you already uploaded.</h1>
+
+                            ) }
+                            
 
                             <h2 className="flex justify-center mt-4">Uploaded File</h2>
                             <ul className="user-files-list flex justify-center gap-4">
                                 {userFiles.map((file, index) => (
                                     <li className="user-files__item" key={index}>
                                         
-                                        <button className="user-files-view-icon text-sm" onClick={() => handleFileSelect(file)}>
+                                        {/* <button className="user-files-view-icon text-sm" onClick={() => handleFileSelect(file)}> */}
+
+                                        <p className="user-files-view-icon text-sm text-center" >
 
                                             <AiFillFilePdf />
                                             
                                             {file.filename}
                                             
-                                        </button>
+                                        </p>
                                         
                                         <button className="user-files-delete-icon" onClick={() => handleDeleteFile(file.id)}>
                                     
@@ -122,6 +156,13 @@ export default function FileUpload({ auth }) {
                         )}
                     </Modal>
                 </div>
+
+                {isLoading ? (
+                    <div className="loader"></div>
+                ) : (
+                        <p></p>
+                )}
+
             </div>
         </AuthenticatedLayout>
     );

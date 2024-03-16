@@ -346,7 +346,7 @@ if __name__ == "__main__":
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
     )
 
-    SOURCE_DIRECTORY = '/home/optizavr/htdocs/www.optizavr.com/storage/app/public/users-files/user-1/'
+    SOURCE_DIRECTORY = '/home/optizavr/htdocs/www.optizavr.com/storage/app/public/users-files/user-' + sys.argv[2]
     
     # SOURCE_DIRECTORY = sys.argv[1]
 

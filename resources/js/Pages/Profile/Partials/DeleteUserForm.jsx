@@ -10,7 +10,7 @@ import { useForm } from '@inertiajs/react';
 export default function DeleteUserForm({ className = '' }) {
     const [confirmingUserDeletion, setConfirmingUserDeletion] = useState(false);
     const passwordInput = useRef();
-
+    
     const {
         data,
         setData,
