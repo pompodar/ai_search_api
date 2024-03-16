@@ -70,8 +70,10 @@ QA = RetrievalQA.from_chain_type(
     chain_type="stuff",
     retriever=RETRIEVER,
     return_source_documents=SHOW_SOURCES,
+    callbacks=callback_manager,
     chain_type_kwargs={
         "prompt": prompt,
+        "memory": memory
     },
 )
 

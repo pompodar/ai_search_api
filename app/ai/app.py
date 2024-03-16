@@ -31,7 +31,7 @@ from langchain.prompts import PromptTemplate
 
 system_prompt = sys.argv[3]
 
-def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=False):
+def get_prompt_template(system_prompt=system_prompt, promptTemplate_type=None, history=True):
     if promptTemplate_type == "llama":
         B_INST, E_INST = "[INST]", "[/INST]"
         B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
@@ -123,7 +123,7 @@ def get_vectorstore():
 def get_conversation_chain(vectorstore):
     LLM = ChatOpenAI()
 
-    prompt, memory = get_prompt_template(promptTemplate_type="llama", history=False)
+    prompt, memory = get_prompt_template(promptTemplate_type="llama", history=True)
 
     QA = RetrievalQA.from_chain_type(
         llm=LLM,
@@ -133,7 +133,9 @@ def get_conversation_chain(vectorstore):
         verbose=False,
         chain_type_kwargs={
             "verbose": False,
-            "prompt": prompt
+            "prompt": prompt,
+            "memory": memory
+
         }
     )
 
