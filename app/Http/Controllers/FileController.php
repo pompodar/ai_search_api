@@ -171,13 +171,15 @@ class FileController extends Controller
             'question' => 'required',
         ]);
 
+        $history = $request->input('history');
+
         $question = $request->input('question');
 
         $initial_prompt = $request->input('initialPrompt');
 
         $pythonScriptPath = app_path(). '/ai/app.py';
 
-        $process = new Process(['python3', $pythonScriptPath, $question, $userId, $initial_prompt]);
+        $process = new Process(['python3', $pythonScriptPath, $question, $userId, $initial_prompt, $history]);
 
         try {
             // Execute the process

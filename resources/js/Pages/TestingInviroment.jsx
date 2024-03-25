@@ -10,6 +10,7 @@ export default function FileUpload({ auth }) {
     const [userFiles, setUserFiles] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
     const [question, setQuestion] = useState("");
+    const [history, setHistory] = useState(false);
 
     const [initialPrompt, setInitialPrompt] = useState("");
 
@@ -42,6 +43,8 @@ export default function FileUpload({ auth }) {
 
         formData.append('initialPrompt', initialPrompt);
 
+        formData.append('history', history);
+
         axios.post('/search', formData)
             .then(response => {
                 setIsLoading(false);
@@ -52,6 +55,10 @@ export default function FileUpload({ auth }) {
                 console.error('Error:', error);
                 setAnswer("An error occurred while processing your request.");
             });
+
+            setHistory(true)
+            
+            
     };
 
     return (

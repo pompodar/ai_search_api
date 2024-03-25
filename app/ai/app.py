@@ -1,5 +1,6 @@
 import sys
 import os
+import json
 from dotenv import load_dotenv
 from PyPDF2 import PdfReader
 from langchain.text_splitter import CharacterTextSplitter
@@ -123,25 +124,168 @@ def get_vectorstore():
 def get_conversation_chain(vectorstore):
     LLM = ChatOpenAI()
 
-    prompt, memory = get_prompt_template(promptTemplate_type="llama", history=True)
+    # prompt, memory = get_prompt_template(promptTemplate_type="llama", history=True)
 
-    QA = RetrievalQA.from_chain_type(
-        llm=LLM,
-        chain_type="stuff",
-        retriever=vectorstore,
-        return_source_documents=False,
-        verbose=False,
-        chain_type_kwargs={
-            "verbose": False,
-            "prompt": prompt,
-            "memory": memory
+    custom_prompt_template = """
+    ### System:
+    You are an AI assistant that follows instructions extremely well. Help as much as you can.
+    ### User:
+    You are a research assistant for an artificial intelligence student. Use only the following information to answer user queries:
+    Context= {context}
+    History = {history}
+    Question= {question}
+    ### Assistant:
+    """
 
-        }
-    )
+    # prompt = PromptTemplate(template=custom_prompt_template,
+    #                         input_variables=["question", "context", "history"])
 
-    response = QA(QUESTION)
+    # memory = ConversationBufferMemory(input_key="question",
+    #                                memory_key="history",
+    #                                return_messages=True)
 
-    res = response["result"]  # Get the answer part of the response
+    # QA = RetrievalQA.from_chain_type(
+    #     llm=LLM,
+    #     chain_type="stuff",
+    #     retriever=vectorstore,
+    #     return_source_documents=False,
+    #     verbose=False,
+    #     chain_type_kwargs={
+    #         "prompt": prompt,
+    #         "memory": memory  
+    #     }
+
+    # )
+
+    # chain = ConversationalRetrievalChain.from_llm(
+    #     llm=LLM,
+    #     retriever=vectorstore,
+    # )
+
+    # result = chain({"question": QUESTION})
+
+    # print(result['answer'])
+
+    prompt = PromptTemplate(template = """Use the following pieces of context and chat history to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer.
+        Context: {context}
+        Chat history: {chat_history}
+        Question: {question} 
+        Helpful Answer:""", 
+        input_variables = ["context", "question", "chat_history"])
+
+    # memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, input_key="question")
+
+    # qa_chain = ConversationalRetrievalChain.from_llm(
+    #     llm = LLM,
+    #     retriever = vectorstore,
+    #     verbose = False,
+    #     memory = memory,
+    #     combine_docs_chain_kwargs={"prompt": prompt},
+    #     )
+
+    # Load history from a file if it exists
+    folder_path = 'chat_history'
+    file_path = os.path.join(folder_path, sys.argv[2] + '_chat_history.json')
+
+    if os.path.exists(file_path) and sys.argv[4] == 'false':
+        os.remove(file_path)
+
+    try:
+        with open(file_path, 'r') as file:
+            history = json.load(file)
+    except FileNotFoundError:
+        history = []
+
+    def save_history():
+        with open(file_path, 'w') as file:
+
+            json.dump(history, file)
+
+    def process_question(query, history):
+
+        # qa_chain = ConversationalRetrievalChain.from_llm(
+        #     LLM, vectorstore, memory=memory, verbose=False
+        # )
+
+        # # Call qa_chain function with the current query and chat history
+        # answer = qa_chain({"question": query, "chat_history": history})['answer']
+        
+        # # Append the query and answer to the history
+        # history.append((query, answer))
+
+        prompt = PromptTemplate(template = """Use the following pieces of context and chat history to answer the question at the end. If you don't know the answer, just say that you don't know, don't try to make up an answer.
+        Context: {context}
+        Chat history: {chat_history}
+        Question: {question} 
+        Helpful Answer:""", 
+        input_variables = ["context", "question", "chat_history"])
+
+        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True, output_key="answer")
+
+        B_INST, E_INST = "[INST]", "[/INST]"
+        B_SYS, E_SYS = "<<SYS>>\n", "\n<</SYS>>\n\n"
+        SYSTEM_PROMPT = B_SYS + sys.argv[3] + E_SYS
+        instruction = """
+        Context: {context}
+        Chat history: {chat_history}
+        Question: {question}"""
+
+        prompt_template = B_INST + SYSTEM_PROMPT + instruction + E_INST
+        prompt = PromptTemplate(input_variables=["chat_history", "context", "question"], template=prompt_template)
+
+        qa_chain = ConversationalRetrievalChain.from_llm(
+            llm = LLM,
+            retriever = vectorstore,
+            verbose = False,
+            memory = memory,
+            combine_docs_chain_kwargs={"prompt": prompt},
+            )
+
+        answer = qa_chain({"question": query, "chat_history": history})['answer']
+        
+        # Append the query and answer to the history
+        history.append((query, answer))    
+
+        save_history()
+        
+        return answer
+
+    # Example usage
+    query = QUESTION
+    answer = process_question(query, history)
+    print(answer) 
+
+    # create QA chain using `langchain`, database is used as vector store retriever to find "context" (using similarity search)
+    # qa = ConversationalRetrievalChain.from_llm(
+    #     llm=LLM,
+    #     chain_type="stuff",
+    #     retriever=vectorstore,
+    #     get_chat_history=lambda o:o,
+    #     combine_docs_chain_kwargs={"prompt": prompt, "memory": memory},
+    #     memory=memory,
+    #     verbose=False,
+    # )
+
+    # # let's ask a question
+    # qa({"question": QUESTION})
+
+    # print(qa)
+
+    # memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+
+    # bot = ConversationalRetrievalChain.from_llm(
+    #     LLM, vectorstore, memory=memory, verbose=False
+    # )
+
+    # result = bot({"question": QUESTION})
+
+    # print(result["answer"])
+
+    # print(result["answer"])
+
+    # response = QA({"query": QUESTION})
+
+    # res = response["result"]  # Get the answer part of the response
 
     # Remove any log messages from the answer
     # answer_lines = [line for line in res.split("\n") if not line.startswith(">")]
@@ -150,8 +294,8 @@ def get_conversation_chain(vectorstore):
     # filtered_answer = "\n".join(answer_lines)
 
     # Print the filtered answer
-    res = res.replace('<<SYS>>', '').replace('[INST]<<SYS>> ', '').replace('<</SYS>>', '').replace('[INST]<<SYS>>', '')
-    print(res)
+    # res = res.replace('<<SYS>>', '').replace('[INST]<<SYS>> ', '').replace('<</SYS>>', '').replace('[INST]<<SYS>>', '')
+    # print(prompt)
 
     # print("Source Documents:")
     # for i, doc in enumerate(docs, start=1):
@@ -159,16 +303,16 @@ def get_conversation_chain(vectorstore):
     #     print(doc.page_content)
     #     print("-------------------------------------")
     
-    memory = ConversationBufferMemory(
-        memory_key='chat_history', return_messages=True)
+    # memory = ConversationBufferMemory(
+    #     memory_key='chat_history', return_messages=True)
     
-    conversation_chain = ConversationalRetrievalChain.from_llm(
-        llm=LLM,
-        retriever=vectorstore,
-        memory=memory,
-    )
+    # conversation_chain = ConversationalRetrievalChain.from_llm(
+    #     llm=LLM,
+    #     retriever=vectorstore,
+    #     memory=memory,
+    # )
 
-    return conversation_chain
+    # return conversation_chain
 
 
 def main():
@@ -188,10 +332,9 @@ def main():
     vectorstore = get_vectorstore()
 
     # create conversation chain
-    get_conversation_chain(vectorstore)
+    answer = get_conversation_chain(vectorstore)
 
     # result = answer({"question": user_question})
-
 
     # print(result)
 

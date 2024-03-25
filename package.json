@@ -20,6 +20,8 @@
         "vite": "^5.0.0"
     },
     "dependencies": {
+        "@langchain/community": "^0.0.41",
+        "@langchain/openai": "^0.0.22",
         "@react-pdf-viewer/core": "^3.12.0",
         "@react-pdf-viewer/toolbar": "^3.12.0",
         "react-icons": "^5.0.1",
