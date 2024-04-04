@@ -84,7 +84,7 @@ export default function FileUpload({ auth }) {
 
                         <>
 
-                            <h1>You can upload up to 5 files. Valid extensions: pdf, csv, xls, xlsx, doc, docx, txt; max size: 20 Mb</h1>
+                            <h1>You can upload up to 5 files. Valid extensions: pdf, csv, doc, docx, txt; max size: 20 Mb</h1>
 
                             <FileUploadForm fetchUserFiles={fetchUserFiles} />
 
@@ -98,7 +98,7 @@ export default function FileUpload({ auth }) {
 
                             <>
 
-                                <h1>You can upload up to 5 files. Valid extensions: pdf, csv, xls, xlsx, doc, docx, txt; max size: 20 Mb</h1>
+                                <h1>You can upload up to 5 files. Valid extensions: pdf, csv, doc, docx, txt; max size: 20 Mb</h1>
 
                                 <FileUploadForm fetchUserFiles={fetchUserFiles} />
 

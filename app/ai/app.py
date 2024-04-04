@@ -44,7 +44,7 @@ class NoOpLLMChain(LLMChain):
        return question
 
 def get_conversation_chain():
-    LLM = ChatOpenAI()
+    LLM = ChatOpenAI(model_name='gpt-4-0125-preview')
 
     embeddings = OpenAIEmbeddings()
 

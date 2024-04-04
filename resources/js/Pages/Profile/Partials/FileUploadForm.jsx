@@ -27,7 +27,7 @@ const FileUploadForm = ({ fetchUserFiles }) => {
                 console.log(response);
 
                 if (response.data.error) {
-                    setNotice("Please, provide a file with a valid extension: pdf, csv, xls, xlsx, doc, docx, txt; max size: 20 Mb.");
+                    setNotice("Please, provide a file with a valid extension: pdf, csv, doc, docx, txt; max size: 20 Mb.");
                 } else {
                     setNotice(response.data);
                 }
