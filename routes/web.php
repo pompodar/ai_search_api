@@ -55,8 +55,12 @@ Route::middleware(['auth', 'verified'])->get('/process', [FileController::class,
 
 Route::middleware(['auth', 'verified'])->post('/search', [FileController::class, 'search']);
 
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/user/{userId}/files', [APIController::class, 'index']);
+Route::middleware(['auth', 'verified', 'auth:sanctum'])->group(function () {
+    Route::get('/user/{userId}/{question}', [APIController::class, 'search']);
 });
+
+Route::get('test', function () {
+    echo 3;
+})->middleware('auth:sanctum');
 
 require __DIR__.'/auth.php';
