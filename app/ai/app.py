@@ -82,7 +82,7 @@ def get_conversation_chain():
     qachat = ConversationalRetrievalChain.from_llm(
         llm=LLM, 
         get_chat_history = lambda h : h,
-        verbose = False,
+        verbose = True,
         # memory=memory,
         # combine_docs_chain_kwargs={'prompt': pr},
         retriever=vectorstore,  # ☜ DOCSEARCH

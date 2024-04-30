@@ -14,6 +14,8 @@ class FileController extends Controller
 {
     public function upload_and_ingest(Request $request)
     {
+        ini_set('max_execution_time', 120000);
+
         if (!Auth::check()) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
@@ -59,6 +61,9 @@ class FileController extends Controller
         $pythonScriptPath = app_path(). '/ai/ingest.py';
 
         $process = new Process(['python3', $pythonScriptPath, $filesPath, $userId]);
+
+        $process->setTimeout(null);
+        $process->setIdleTimeout(null);
 
         try {
             // Execute the process
@@ -164,6 +169,7 @@ class FileController extends Controller
 
     public function search(Request $request)
     {
+        ini_set('max_execution_time', 12000);
 
         $userId = Auth::id();
 
