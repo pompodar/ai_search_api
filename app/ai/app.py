@@ -93,11 +93,7 @@ def get_conversation_chain():
     # qachat.question_generator = no_op_chain
 
     # PROMPT 👇
-    sys_prompt = """You are a helpful shop assistant, you will use the provided context (a document or documents) to answer the user"s questions.
-    Read the given context before answering questions think step by step. If you can not answer a user question based on 
-    the provided context, inform the user. Do not make up answers! Do not use any information other than that in the document provided to you for answering the user. Provide a detailed answer to the question. 
-    Answer only in the language the user wrote in. If you you are asked about something not related to the context answer that this questions not relevant in the language the user wrote in!
-    Also, take into consideration previous questions and answers.
+    sys_prompt = sys.argv[3] + """
     Context:
     {context}
     Chat History:
@@ -119,6 +115,14 @@ def get_conversation_chain():
     save_history()
 
     print(result['answer'])
+
+    docs = result["source_documents"]
+    for i, doc in enumerate(docs, start=1):
+        print(f"Document {i}:")
+        print(doc.metadata)
+        print("-------------------------------------")
+    
+
 
 
 def main():

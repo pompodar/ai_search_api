@@ -69,10 +69,10 @@ export default function FileUpload({ auth }) {
                     <h1>Testing Inviroment</h1>
                     {userFiles.length > 0 ? (
                         <form onSubmit={handleSubmit} className="mt-4 flex flex-col">
-                            {/* <label className="flex flex-col">
+                            <label className="flex flex-col">
                                 Enter the initial prompt:
                                 <textarea type="text" name="initial_prompt" onChange={(e) => setInitialPrompt(e.target.value)}></textarea>
-                            </label> */}
+                            </label> 
 
                             <label className="flex flex-col">
                                 Enter your question:
