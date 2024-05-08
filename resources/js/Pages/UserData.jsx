@@ -20,14 +20,25 @@ export default function FileUpload({ auth }) {
 
     const [notice, setNotice] = useState("");
 
-    useEffect(() => {
-        fetchUserFiles();
-    }, []);
+    const [userId, setUserId] = useState("");
 
     const fetchUserFiles = async () => {
         try {
             const response = await axios.get('/user/files');
             setUserFiles(response.data.files);
+        } catch (error) {
+            console.error('Error fetching user files:', error);
+        }
+    };
+
+    useEffect(() => {
+        getUserID();
+    }, []);
+
+    const getUserID = async () => {
+        try {
+            const response = await axios.get('/api/get_user_id');
+            setUserId(response.data.user_id);
         } catch (error) {
             console.error('Error fetching user files:', error);
         }
@@ -86,7 +97,7 @@ export default function FileUpload({ auth }) {
 
                             <h1>You can upload up to 5 files. Valid extensions: pdf, csv, doc, docx, txt; max size: 20 Mb</h1>
 
-                            <FileUploadForm fetchUserFiles={fetchUserFiles} />
+                            <FileUploadForm fetchUserFiles={fetchUserFiles} notice={notice} setNotice={setNotice}/>
 
                         </>
                     
@@ -135,6 +146,116 @@ export default function FileUpload({ auth }) {
                                     </li>
                                 ))}
                             </ul>
+
+                            <p>Your user id: {userId}</p>
+
+                            <p>Your secret key: {notice}</p>
+
+                            <hr></hr>
+
+                            <p>
+                                Here is an example of code you can use:
+                            </p>
+
+                            <hr></hr>
+
+
+                            <code>
+
+                            {`<?php`}<br/>
+                            {`$userId = <Your user id>;`}<br/>
+                            {`$endpoint = "https://srv518474.hstgr.cloud/api/{$userId}/search/";`}<br/>
+                            {`$token = <Your secret key>;`}<br/>
+                            {`$history = isset($_COOKIE['history']) ? json_decode($_COOKIE['history'], true) : array();`}<br/>
+                            {``}<br/>
+                            {`// Check if the form is submitted`}
+                            {`if ($_SERVER["REQUEST_METHOD"] == "POST") {`}<br/>
+                            {`    if (isset($_POST['clear_history'])) {`}<br/>
+                            {`        // Clear the history from cookies`}<br/>
+                            {`        setcookie("history", "", time() - 3600, "/"); // set to a past time to expire the cookie`}<br/>
+                            {``}<br/>
+                            {`        $history = array(); `}<br/>
+                            {`    } else {`}<br/>
+                            {`        // Retrieve form data`}<br/>
+                            {`        $prompt = $_POST['prompt'];`}<br/>
+                            {`        $question = $_POST['question'];`}<br/>
+                            {``}<br/>
+                            {`        // Prepare the data payload`}<br/>
+                            {`        $data = array(`}<br/>
+                            {`            'prompt' => $prompt,`}<br/>
+                            {`            'question' => $question,`}<br/>
+                            {`            'history' => $history`}<br/>
+                            {`        );`}<br/>
+                            {`    `}<br/>
+                            {`    $ch = curl_init();`}<br/>
+                            {``}<br/>
+                            {`    // Set the URL`}<br/>
+                            {`    curl_setopt($ch, CURLOPT_URL, $endpoint);`}<br/>
+                            {``}<br/>
+                            {`    // Set the request method (GET, POST, PUT, DELETE, etc.)`}<br/>
+                            {`    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, 'POST');`}<br/>
+                            {``}<br/>
+                            {`    // Set the Authorization header with the Bearer token`}<br/>
+                            {`    curl_setopt($ch, CURLOPT_HTTPHEADER, array(`}<br/>
+                            {`        'Authorization: Bearer ' . $token,`}<br/>
+                            {`    ));`}<br/>
+                            {``}<br/>
+                            {`    // Set the data to be sent`}<br/>
+                            {`    curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));`}<br/>
+                            {``}<br/>
+                            {`    // Set to receive the response as a string`}<br/>
+                            {`    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);`}<br/>
+                            {``}<br/>
+                            {`    // Execute the request`}<br/>
+                            {`    $response = curl_exec($ch);`}<br/>
+                            {``}<br/>
+                            {`    // Check for errors`}<br/>
+                            {`    if (curl_errno($ch)) { `}<br/>
+                            {`        echo 'Curl error: ' . curl_error($ch);`}<br/>
+                            {`    }`}<br/>
+                            {``}<br/>
+                            {`    // Close cURL session`}<br/>
+                            {`    curl_close($ch);`}<br/>
+                            {``}<br/>
+                            {`    $history[] = array('question' => $question, 'response' => $response);`}<br/>
+                            {``}<br/>
+                            {`    // Store the updated history in cookies`}<br/>
+                            {`    setcookie("history", json_encode($history), time() + (86400 * 30), "/"); // 86400 = 1 day`}<br/>
+                            {`}<br/>`}<br/>
+                            {`?>`}<br/>
+                            {``}<br/>
+                            {`<!DOCTYPE html>`}<br/>
+                            {`<html>`}<br/>
+                            {`<head>`}<br/>
+                            {`    <title>Form with cURL</title>`}<br/>
+                            {`</head>`}<br/>
+                            {`<body>`}<br/>
+                            {`    <?php`}<br/>
+                            {`        if (!empty($history)) { `}<br/>
+                            {`            echo "<h2>History:</h2>";`}<br/>
+                            {`            echo "<ul>";`}<br/>
+                            {`            foreach ($history as $entry) { `}<br/>
+                            {`                echo "<li><strong>Question:</strong> " . $entry['question'] . "<br/>";`}<br/>
+                            {`                echo "<strong>Response:</strong> " . $entry['response'] . "</li>";`}<br/>
+                            {`            }`}<br/>
+                            {`            echo "</ul>";`}<br/>
+                            {`        }`}<br/>
+                            {`    ?>`}<br/>
+                            {`    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">`}<br/>
+                            {`        Prompt: <input type="text" name="prompt"><br/><br/>`}<br/>
+                            {`        Question: <input type="text" name="question"><br/><br/>`}<br/>
+                            {`        <input type="submit" value="Submit">`}<br/>
+                            {`    </form>`}<br/>
+                            {``}<br/>
+                            {`    <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">`}<br/>
+                            {`        <input type="hidden" name="clear_history" value="true">`}<br/>
+                            {`        <button type="submit">Clear History</button>`}<br/>
+                            {`    </form>`}<br/>
+                            {`</body>`}<br/>
+                            {`</html>`}<br/>
+
+                                
+                            </code>
                         
                         </>
                         

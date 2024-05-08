@@ -4,7 +4,10 @@ namespace App\Http\Controllers\API\v1;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use App\HTTP\Controllers\Controller;
+use App\Http\Controllers\Controller;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
+use Illuminate\Support\Facades\Validator;
 
 class APIController extends Controller
 {
@@ -17,13 +20,37 @@ class APIController extends Controller
         return response()->json(['filenames' => $filenames]);
     }
 
-    public function search($userId, $question)
+    public function refresh_dialog (Request $request) {
+        $user = $request->user();
+    
+        // Ensure the user is authenticated
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+    
+        // Return the generated token
+        return ['token' => $user->api_token];
+    }
+
+    public function get_token (Request $request) {
+        $user = $request->user();
+    
+        // Ensure the user is authenticated
+        if (!$user) {
+            return response()->json(['error' => 'Unauthorized'], 401);
+        }
+    
+        // Return the generated token
+        return ['token' => $user->api_token];
+    }
+
+    public function search($userId, Request $request)
     {
         ini_set('max_execution_time', 12000);
 
-        dd($userId, $question);
+        $question = $request->input('question');
 
-        $history = $request->input('history');
+        $history = $request->input('question');
 
         $initial_prompt = $request->input('initialPrompt');
 

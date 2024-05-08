@@ -48,7 +48,7 @@ def get_conversation_chain():
 
     embeddings = OpenAIEmbeddings()
 
-    vectordb = Chroma(persist_directory="/home/optizavr/htdocs/www.optizavr.com/app/ai/DB/user-" + sys.argv[2], embedding_function=embeddings)
+    vectordb = Chroma(persist_directory="/home/user/htdocs/srv518474.hstgr.cloud/app/ai/DB/user-" + sys.argv[2], embedding_function=embeddings)
 
     vectorstore = vectordb.as_retriever()
 
@@ -82,11 +82,11 @@ def get_conversation_chain():
     qachat = ConversationalRetrievalChain.from_llm(
         llm=LLM, 
         get_chat_history = lambda h : h,
-        verbose = True,
+        verbose = False,
         # memory=memory,
         # combine_docs_chain_kwargs={'prompt': pr},
         retriever=vectorstore,  # ☜ DOCSEARCH
-        return_source_documents=True        # ☜ CITATIONS
+        return_source_documents=False        # ☜ CITATIONS
     )
 
     no_op_chain = NoOpLLMChain()
@@ -116,11 +116,11 @@ def get_conversation_chain():
 
     print(result['answer'])
 
-    docs = result["source_documents"]
-    for i, doc in enumerate(docs, start=1):
-        print(f"Document {i}:")
-        print(doc.metadata)
-        print("-------------------------------------")
+    # docs = result["source_documents"]
+    # for i, doc in enumerate(docs, start=1):
+    #     print(f"Document {i}:")
+    #     print(doc.metadata)
+    #     print("-------------------------------------")
     
 
 

@@ -76,7 +76,23 @@ class FileController extends Controller
                 echo "error";
             } else {
                 // Process was successful, you can echo a success message or do something else
-                echo "Process executed successfully!";
+
+                // Check if the user already has tokens
+                $existingTokens = $user->tokens;
+
+                if (!$existingTokens->isEmpty()) {
+                    return response()->json(['token' => $user->api_token]);
+                } else {
+                    // Generate a personal access token for the authenticated user
+                    $tokenName = 'api_token';
+                    $token = $user->createToken($tokenName);
+
+                    $user->api_token = $token->plainTextToken;
+                    $user->save();
+
+                    // Return the token
+                    return response()->json(['token' => $token->plainTextToken]);
+                }
             }
         } catch (ProcessFailedException $exception) {
             // Echo the error message

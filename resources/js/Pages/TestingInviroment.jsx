@@ -31,9 +31,18 @@ export default function FileUpload({ auth }) {
         }
     };
 
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
+   const handleRefreshDialog = () => {
+        axios.post('/api/refresh_dialog')
+        .then(response => {
+            setIsLoading(false);
+            console.log(response.data);
+        })
+        .catch(error => {
+            setIsLoading(false);
+            console.error('Error:', error);
+            setAnswer("An error occurred while processing your request.");
+        });
+   }
 
     const handleSubmit = (e) => {
         e.preventDefault();
@@ -57,8 +66,7 @@ export default function FileUpload({ auth }) {
             });
 
             setHistory(true)
-            
-            
+                   
     };
 
     return (
@@ -68,18 +76,27 @@ export default function FileUpload({ auth }) {
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <h1>Testing Inviroment</h1>
                     {userFiles.length > 0 ? (
-                        <form onSubmit={handleSubmit} className="mt-4 flex flex-col">
-                            <label className="flex flex-col">
-                                Enter the initial prompt:
-                                <textarea type="text" name="initial_prompt" onChange={(e) => setInitialPrompt(e.target.value)}></textarea>
-                            </label> 
+                        <>
+                            <form onSubmit={handleSubmit} className="mt-4 flex flex-col">
+                                <label className="flex flex-col">
+                                    Enter the initial prompt:
+                                    <textarea type="text" name="initial_prompt" onChange={(e) => setInitialPrompt(e.target.value)}></textarea>
+                                </label> 
 
-                            <label className="flex flex-col">
-                                Enter your question:
-                                <textarea type="text" name="question" onChange={(e) => setQuestion(e.target.value)}></textarea>
-                            </label>
-                            <button type="submit">Submit</button>
-                        </form>
+                                <label className="flex flex-col">
+                                    Enter your question:
+                                    <textarea type="text" name="question" onChange={(e) => setQuestion(e.target.value)}></textarea>
+                                </label>
+                                <button type="submit">Submit</button>
+                            </form>
+                            
+                            {/* <button
+                                className="mt-4"
+                                onClick={handleRefreshDialog}
+                            >
+                                Start a new search
+                            </button> */}
+                        </>
                     ) : (
                         <p>You have not uploaded any files yet.</p>
                     )}

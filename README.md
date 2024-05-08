@@ -17,3 +17,13 @@ to dos:
 1) api not working, only web
 
 2) implement routes to inertia links instead of hardcoded urls
+
+________
+
+pip install --upgrade chromadb==0.3.29
+
+apt install libgl1-mesa-glx
+
+sudo apt-get install poppler-utils
+
+sudo apt-get install libleptonica-dev tesseract-ocr libtesseract-dev python3-pil tesseract-ocr-eng tesseract-ocr-script-latn

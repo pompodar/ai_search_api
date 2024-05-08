@@ -13,7 +13,6 @@ from dotenv import load_dotenv
 from concurrent.futures import ProcessPoolExecutor, ThreadPoolExecutor, as_completed
 from langchain.embeddings import OpenAIEmbeddings
 import click
-import torch
 from langchain.docstore.document import Document
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
@@ -346,7 +345,7 @@ if __name__ == "__main__":
         format="%(asctime)s - %(levelname)s - %(filename)s:%(lineno)s - %(message)s", level=logging.INFO
     )
 
-    SOURCE_DIRECTORY = '/home/optizavr/htdocs/www.optizavr.com/storage/app/public/users-files/user-' + sys.argv[2]
+    SOURCE_DIRECTORY = '/home/user/htdocs/srv518474.hstgr.cloud/storage/app/public/users-files/user-' + sys.argv[2]
     
     # SOURCE_DIRECTORY = sys.argv[1]
 

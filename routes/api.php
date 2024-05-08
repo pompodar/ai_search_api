@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FileController;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\API\v1\APIController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,27 +21,17 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::middleware('web')->get('/hi', function (Request $request) {
-    $user = $request->user();
+Route::middleware('web')->get('/refresh_dialog', [APIController::class, 'refresh_dialog']);
 
-    // Ensure the user is authenticated
-    if (!$user) {
-        return response()->json(['error' => 'Unauthorized'], 401);
-    }
+Route::middleware('web')->get('/get_token', [APIController::class, 'get_token']);
 
-    // Generate a personal access token for the authenticated user
-    $tokenName = 'test'; // Replace 'YourTokenName' with your desired token name
-    $token = $user->createToken($tokenName);
-
-    // foreach ($user->tokens as $token) {
-    //     echo $token;
-    // }
-
-    // Return the generated token
-    return ['token' => $token->plainTextToken];
+Route::middleware('web')->get('/get_user_id', function (Request $request) {
+    return response()->json(['user_id' => $request->user()->id]);
 });
 
-Route::middleware(['web', 'auth:sanctum'])->get('/test', function (Request $request) {
+Route::middleware(['auth:sanctum'])->post('/{userId}/search', [APIController::class, 'search']);
 
-    return ['test' => 'test'];
+Route::middleware(['auth:sanctum'])->withoutMiddleware('csrf')->post('/test', function (Request $request) {
+    $input1 = $request->input('input1');
+    return $request;
 });
