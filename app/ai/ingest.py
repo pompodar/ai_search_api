@@ -4,9 +4,10 @@ import os
 from chromadb.config import Settings
 
 # https://python.langchain.com/en/latest/modules/indexes/document_loaders/examples/excel.html?highlight=xlsx#microsoft-excel
-from langchain.document_loaders import CSVLoader, PDFMinerLoader, TextLoader, Docx2txtLoader
+from langchain.document_loaders import PDFMinerLoader, TextLoader, Docx2txtLoader
 from langchain.document_loaders import UnstructuredFileLoader, UnstructuredMarkdownLoader
 from langchain.document_loaders import UnstructuredHTMLLoader
+from langchain_community.document_loaders import AzureAIDocumentIntelligenceLoader
 
 import sys
 from dotenv import load_dotenv
@@ -18,6 +19,9 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.vectorstores import Chroma
 from langchain.text_splitter import CharacterTextSplitter
 from langchain_community.document_loaders import TextLoader
+from langchain_community.document_loaders import Docx2txtLoader
+from langchain_community.document_loaders.csv_loader import CSVLoader
+from langchain_community.document_loaders.csv_loader import UnstructuredCSVLoader
 from langchain_community.embeddings.sentence_transformer import (
     SentenceTransformerEmbeddings,
 )
@@ -34,7 +38,6 @@ DOCUMENT_MAP = {
     ".xls": CSVLoader,
     ".xlsx": CSVLoader,
     ".docx": Docx2txtLoader,
-    ".doc": Docx2txtLoader,
 }
 
 # Default Instructor Model
